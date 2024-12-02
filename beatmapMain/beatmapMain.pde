@@ -84,7 +84,7 @@ void setup(){
   
   //phony by Tsumiki ft. KAFU - information & sound file from https://projectsekai.fandom.com/wiki/Phony
   phony = new SoundFile(this, "Phony_(Game_Version_-_VIRTUAL_SINGER).wav");
-  bpmPhony.setBPM(170);
+  //bpmPhony.setBPM(170);
   beatLane1P = new boolean[24479];
   beatLane2P = new boolean[24479];
   beatLane3P = new boolean[24479];
@@ -96,5 +96,7 @@ void setup(){
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ draw ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 void draw(){
  background(255);
-  LLNF.play();
+  if(!UMG.isPlaying()){
+    UMG.play();
+  }
 }
