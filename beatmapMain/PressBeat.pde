@@ -1,0 +1,7 @@
+class PressBeat{
+ 
+  PressBeat(){ //constructor
+    
+  }
+  
+}

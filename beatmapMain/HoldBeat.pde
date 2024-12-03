@@ -1,0 +1,7 @@
+class HoldBeat{
+ 
+  HoldBeat(){ //constructor
+    
+  }
+  
+}
