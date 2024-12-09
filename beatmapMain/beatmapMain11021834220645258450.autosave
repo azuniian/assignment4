@@ -9,10 +9,6 @@ BeatsPerMinute bpmUMG;
 BeatsPerMinute bpmMeltdown;
 BeatsPerMinute bpmCantarella;
 BeatsPerMinute bpmPhony;
-BeatsPerMinute checkLane1;
-BeatsPerMinute checkLane2;
-BeatsPerMinute checkLane3;
-BeatsPerMinute checkLane4;
 
 /////sound files/////
 SoundFile LLNF;
@@ -37,8 +33,6 @@ boolean songScreen = false;
 boolean pauseScreen = false;
 boolean controlScreen = false;
 boolean scoreScreen = false;
-boolean isSongPlaying = false;
-
 
 /////arrays/////
 //Luka Luka Night Fever
@@ -224,10 +218,6 @@ void setup(){
   bpmPhony = new BeatsPerMinute(this); //initializes bpm for phony
   bpmPhony.setBPM(170);
   
-  checkLane1 = new BeatsPerMinute(this); //initialize a BPM check for lane 1
-  checkLane2 = new BeatsPerMinute(this); //initializes a BPM check for lane 2
-  checkLane3 = new BeatsPerMinute(this); //initializes a BPM check for lane 3
-  checkLane4 = new BeatsPerMinute(this); //initializes a BPM check for lane 4
 }
 
 
@@ -270,24 +260,7 @@ void draw(){
    rect(991, 760, 1244, 860);
    rect(991, 790, 1244, 830);
    
-   if(isSongPlaying == true){
-   //check lane to see if beat has been spawned for this beat in song
-     if(checkLane1.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 1)
-       
-     }
    
-     if(checkLane2.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 2)
-       
-     }
-   
-     if(checkLane3.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 3)
-       
-     }
-   
-     if(checkLane4.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 4)
-       
-     }
-   }
  }
  
  else if(pauseScreen == true){
