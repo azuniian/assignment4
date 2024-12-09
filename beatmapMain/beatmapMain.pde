@@ -210,7 +210,7 @@ void setup(){
   //Cantarella by Kurousa ft. KAITO and Hatsune Miku - information & sound file from https://projectsekai.fandom.com/wiki/Cantarella
   Cantarella = new SoundFile(this, "Cantarella_(Game_Version_-_VIRTUAL_SINGER).wav");
   bpmCantarella = new BeatsPerMinute(this); //initialize bpm for Cantarella
-  bpmCantarella.setBPM(144); //set bpm for Cantarella
+  bpmCantarella.setBPM(576); //set bpm for Cantarella
   
   
   //phony by Tsumiki ft. KAFU - information & sound file from https://projectsekai.fandom.com/wiki/Phony
@@ -259,6 +259,8 @@ void draw(){
    //lane 4 reference rectangles
    rect(991, 760, 1244, 860);
    rect(991, 790, 1244, 830);
+   
+   
  }
  
  else if(pauseScreen == true){
