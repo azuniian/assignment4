@@ -1,12 +1,24 @@
-class PressBeat{
- 
-  PressBeat(){ //constructor
+class PressBeat1{
+/////variables/////
+//ArrayLists
+ArrayList<PVector> pressBeatLane1 = new ArrayList<PVector>();
+ArrayList<PVector> pressBeatVel1 = new ArrayList<PVector>();
+//PVectors
+PVector press1Pos;
+PVector vel;
+//note qualities
+PVector startPos;
+PVector size;
+String label;
+color colour;
+
+  PressBeat1(){ //constructor
     
   }
   
   void spawnBeat(){
-    //create new addition to object arraylist
     //assign it a pvector for position in pvector arraylist
+    
   }
   
   void scrollNotes(){

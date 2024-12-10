@@ -26,16 +26,7 @@ SoundFile Cantarella;
 SoundFile phony;
 
 /////PVectors/////
-PVector lane1PressPos;
-PVector lane2PressPos;
-PVector lane3PressPos;
-PVector lane4PressPos;
-PVector lane1HoldPos;
-PVector lane2HoldPos;
-PVector lane3HoldPos;
-PVector lane4HoldPos;
-PVector noteVel;
-PVector noteAccel;
+PVector accel;
 
 /////ints/////
 int currentBeat;
@@ -44,10 +35,11 @@ int measure;
 int songChoice;
 
 /////floats/////
+float measureFloat;
 
 /////booleans/////
-boolean gameScreen = false;
-boolean startScreen = true;
+boolean gameScreen = true;
+boolean startScreen = false;
 boolean songScreen = false;
 boolean pauseScreen = false;
 boolean controlScreen = false;
@@ -254,33 +246,19 @@ boolean[] beatLane3P;
 boolean[] beatLane4P;*/
 
 /////objects/////
-HoldBeat lane1H = new HoldBeat();
-HoldBeat lane2H = new HoldBeat();
-HoldBeat lane3H = new HoldBeat();
-HoldBeat lane4H = new HoldBeat();
-PressBeat lane1P = new PressBeat();
-PressBeat lane2P = new PressBeat();
-PressBeat lane3P = new PressBeat();
-PressBeat lane4P = new PressBeat();
+HoldBeat1 hold1 = new HoldBeat1();
+HoldBeat2 hold2 = new HoldBeat2();
+HoldBeat3 hold3 = new HoldBeat3();
+HoldBeat4 hold4 = new HoldBeat4();
+PressBeat1 press1 = new PressBeat1();
+PressBeat2 press2 = new PressBeat2();
+PressBeat3 press3 = new PressBeat3();
+PressBeat4 press4 = new PressBeat4();
 
 /////ArrayLists/////
 //pvectors
-ArrayList<PVector> pressBeatLane1 = new ArrayList<PVector>();
-ArrayList<PVector> pressBeatLane2 = new ArrayList<PVector>();
-ArrayList<PVector> pressBeatLane3 = new ArrayList<PVector>();
-ArrayList<PVector> pressBeatLane4 = new ArrayList<PVector>();
-ArrayList<PVector> holdBeatLane1 = new ArrayList<PVector>();
-ArrayList<PVector> beatVel = new ArrayList<PVector>();
-ArrayList<PVector> beatAccel = new ArrayList<PVector>();
-//objects
-ArrayList<HoldBeat> lane1Hold = new ArrayList<HoldBeat>();
-ArrayList<HoldBeat> lane2Hold = new ArrayList<HoldBeat>();
-ArrayList<HoldBeat> lane3Hold = new ArrayList<HoldBeat>();
-ArrayList<HoldBeat> lane4Hold = new ArrayList<HoldBeat>();
-ArrayList<PressBeat> lane1Press = new ArrayList<PressBeat>();
-ArrayList<PressBeat> lane2Press = new ArrayList<PressBeat>();
-ArrayList<PressBeat> lane3Press = new ArrayList<PressBeat>();
-ArrayList<PressBeat> lane4Press = new ArrayList<PressBeat>();
+//ArrayList<PVector> accel = new ArrayList<PVector>();
+
 
 
 
@@ -389,141 +367,187 @@ void draw(){
      
      if(isSongPlaying == true){
        //check lane to see if beat has been spawned for this beat in song
+       //LANE1
        if(checkSpawnLane1.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 1)
+         //MEASURE 1
          if(measure == 1){
            //scroll existing beats down the screen
-           lane1P.scrollNotes();
-           lane2P.scrollNotes();
-           lane3P.scrollNotes();
-           lane4P.scrollNotes();
-           lane1H.scrollNotes();
-           lane2H.scrollNotes();
-           lane3H.scrollNotes();
-           lane4H.scrollNotes();
+           press1.scrollNotes();
+           hold1.scrollNotes();
            
            //spawn new beats
-           //check what type of beat needs to be spawned
-           if(measure1Lane1Press[(currentBeat+16)] == true){ //press beat
-             //spawn a press beat
-             lane1P.spawnBeat();
-           }
-           
-           else if(measure1Lane1Hold[(currentBeat+16)] == true){ //hold beat
-             //check if this is beginning or end of beat
-             if(measure1Lane1Hold[(currentBeat+15)] == false){
-               //spawn the start of a hold beat
-               lane1H.spawnStartBeat();
+           //check if the beats being checked are in this measure or next
+           if((currentBeat+16)<80){ //current measure
+             //check what type of beat needs to be spawned
+             if(measure1Lane1Press[(currentBeat+16)] == true){ //press beat
+               //spawn a press beat
+               press1.spawnBeat();
              }
-             else if (measure1Lane1Hold[currentBeat+17] == false){
-               //spawn the end of a hold beat
-               lane1H.spawnEndBeat(); 
+             else if(measure1Lane1Hold[(currentBeat+16)] == true){ //hold beat
+               //check if this is beginning or end of beat
+               if(measure1Lane1Hold[(currentBeat+15)] == false){
+                 //spawn the start of a hold beat
+                 hold1.spawnStartBeat();
+               }
+               else if (measure1Lane1Hold[currentBeat+17] == false){
+                 //spawn the end of a hold beat
+                 hold1.spawnEndBeat(); 
+               }
+               else{
+                 //spawn the middle of a hold beat
+                 hold1.spawnMidBeat(); 
+               }  
              }
              else{
-               //spawn the middle of a hold beat
-               lane1H.spawnMidBeat(); 
-             }  
-           }
-           else{
-             //don't spawn a beat
+               //don't spawn a beat
+             }
            }
            
+           else if((currentBeat+16)> 80){ //next measure
+             if(measure2Lane1Press[(currentBeat+16)] == true){ //press beat
+               //spawn a press beat
+               press1.spawnBeat();
+             }
+             else if(measure2Lane1Hold[(currentBeat+16)] == true){ //hold beat
+               //check if this is beginning or end of beat
+               if(measure2Lane1Hold[(currentBeat+15)] == false){
+                 //spawn the start of a hold beat
+                 hold1.spawnStartBeat();
+               }
+               else if (measure2Lane1Hold[currentBeat+17] == false){
+                 //spawn the end of a hold beat
+                 hold1.spawnEndBeat(); 
+               }
+               else{
+                 //spawn the middle of a hold beat
+                 hold1.spawnMidBeat(); 
+               }  
+             }
+             else{
+               //don't spawn a beat
+             }
+           }  
+           
            //display all beats
-           lane1P.display();
-           lane2P.display();
-           lane3P.display();
-           lane4P.display();
-           lane1H.display();
-           lane2H.display();
-           lane3H.display();
-           lane4H.display();
+           press1.display();
+           hold1.display();    
          }
          
+         //MEASURE 2
          else if(measure == 2){
            
          }
          
+         //MEASURE 3
          else if(measure == 3){
            
          }
          
+         //MEASURE 4
          else if(measure == 4){
            
          }
          
+         //MEASURE 5
          else if(measure == 5){
            
          }
          
+         //MEASURE 6
          else if(measure == 6){
            
          }
          
+         //MEASURE 7
          else if(measure == 7){
            
          }
          
+         //MEASURE 8
          else if(measure == 8){
            
          }
          
+         //MEASURE 9
          else if(measure == 9){
            
          }
          
+         //MEASURE 10
          else if(measure == 10){
            
          }
          
+         //MEASURE 11
          else if(measure == 11){
            
          }
          
+         //MEASURE 12
          else if(measure == 12){
            
          }
          
+         //MEASURE 13
          else if(measure == 13){
            
          }
          
+         //MEASURE 14
          else if(measure == 14){
            
          }
          
+         //MEASURE 15
          else if(measure == 15){
            
          }
          
+         //MEASURE 16
          else if(measure == 16){
            
          }
          
+         //MEASURE 17
          else if(measure == 17){
            
          }
          
+         //MEASURE 18
          else if(measure == 18){
            
          }
          
+         //MEASURE 19
          else if(measure == 19){
            
          }
        }
    
+       //LANE 2
        if(checkSpawnLane2.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 2)
        
        }
    
+       //LANE 3
        if(checkSpawnLane3.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 3)
        
        }
    
+       //LANE 4
        if(checkSpawnLane4.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 4)
        
        }
        currentBeat+=1;
-       measure = currentBeat%64;
+       if(measure == 1){ //measure 1 is longer, so needs a specific case
+         measureFloat = (currentBeat/80)+1; //get current measure
+         measure = int(measureFloat); //typecast to get whole number
+       }
+       else{
+         measureFloat = (currentBeat/64)+1; //get current measure
+         measure = int(measureFloat); //typecast to get whole number 
+       }
+       
      }
    }
      

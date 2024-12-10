@@ -1,12 +1,10 @@
-class HoldBeat1{
+class PressBeat3{
 /////variables/////
 //ArrayLists
-ArrayList<PVector> holdBeatLane1 = new ArrayList<PVector>();
-ArrayList<PVector> holdBeatVel1 = new ArrayList<PVector>();
+ArrayList<PVector> pressBeatLane3 = new ArrayList<PVector>();
+ArrayList<PVector> pressBeatVel3 = new ArrayList<PVector>();
 //PVectors
-PVector hold1StartPos;
-PVector hold1MidPos;
-PVector hold1EndPos;
+PVector press3Pos;
 PVector vel;
 //note qualities
 PVector startPos;
@@ -14,20 +12,13 @@ PVector size;
 String label;
 color colour;
 
-  HoldBeat1(){ //constructor
-    
+  PressBeat3(){ //constructor
+   
   }
   
-  void spawnStartBeat(){
+  void spawnBeat(){
     //create new addition to object arraylist
     //assign it a pvector for position in pvector arraylist
-  }
-  
-  void spawnMidBeat(){
-    
-  }
-  
-  void spawnEndBeat(){
     
   }
   
@@ -39,8 +30,5 @@ color colour;
   void display(){
     //display whole arraylist OR display notes within the frame with conditionals 
     //(i.e. if(positiony > 0 && positiony < 1080){display})
-    //may need to separate displays of mid, start, and end beats depending on specifics of display
-    
   }
-  
 }
