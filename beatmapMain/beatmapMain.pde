@@ -32,7 +32,6 @@ PVector accel;
 int currentBeat;
 int gameScore;
 int measure;
-int songChoice;
 
 /////floats/////
 float measureFloat;
@@ -246,14 +245,14 @@ boolean[] beatLane3P;
 boolean[] beatLane4P;*/
 
 /////objects/////
-HoldBeat1 hold1 = new HoldBeat1();
-HoldBeat2 hold2 = new HoldBeat2();
-HoldBeat3 hold3 = new HoldBeat3();
-HoldBeat4 hold4 = new HoldBeat4();
-PressBeat1 press1 = new PressBeat1();
-PressBeat2 press2 = new PressBeat2();
-PressBeat3 press3 = new PressBeat3();
-PressBeat4 press4 = new PressBeat4();
+HoldBeat1 hold1 = new HoldBeat1(38, 253, 38, 30, color(23, 19, 97), color(135, 132, 189));
+HoldBeat2 hold2 = new HoldBeat2(38, 253, 38, 30, color(23, 19, 97), color(135, 132, 189));
+HoldBeat3 hold3 = new HoldBeat3(38, 253, 38, 30, color(23, 19, 97), color(135, 132, 189));
+HoldBeat4 hold4 = new HoldBeat4(38, 253, 38, 30, color(23, 19, 97), color(135, 132, 189));
+PressBeat1 press1 = new PressBeat1(38, 253, color(23, 19, 97));
+PressBeat2 press2 = new PressBeat2(38, 253, color(23, 19, 97));
+PressBeat3 press3 = new PressBeat3(38, 253, color(23, 19, 97));
+PressBeat4 press4 = new PressBeat4(38, 253, color(23, 19, 97));
 
 /////ArrayLists/////
 //pvectors
@@ -356,14 +355,14 @@ void draw(){
    rect(991, 760, 1244, 860);
    rect(991, 790, 1244, 830);
    
-   if(songChoice == 1){
-     if(!Cantarella.isPlaying()){
-       bpmCantarella.setBPM(144);
-       if(bpmCantarella.getBPM() == 16){
-         Cantarella.play();
-         isSongPlaying = true; 
-       }
+   
+   if(!Cantarella.isPlaying()){
+     bpmCantarella.setBPM(144);
+     if(bpmCantarella.getBPM() == 16){
+       Cantarella.play();
+       isSongPlaying = true; 
      }
+     
      
      if(isSongPlaying == true){
        //check lane to see if beat has been spawned for this beat in song
@@ -371,6 +370,10 @@ void draw(){
        if(checkSpawnLane1.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 1)
          //MEASURE 1
          if(measure == 1){
+           //check to see if any note arrays need to be reset
+           press1.resetNote();
+           hold1.resetNote();
+           
            //scroll existing beats down the screen
            press1.scrollNotes();
            hold1.scrollNotes();
@@ -426,17 +429,80 @@ void draw(){
              else{
                //don't spawn a beat
              }
-           }  
-           
+           }   
            //display all beats
            press1.display();
            hold1.display();    
          }
          
+         
          //MEASURE 2
          else if(measure == 2){
+           //check to see if any note arrays need to be reset
+           press1.resetNote();
+           hold1.resetNote();
            
+           //scroll existing beats down the screen
+           press1.scrollNotes();
+           hold1.scrollNotes();
+           
+           //spawn new beats
+           //check if the beats being checked are in this measure or next
+           if((currentBeat+16)<80){ //current measure
+             //check what type of beat needs to be spawned
+             if(measure2Lane1Press[(currentBeat+16)] == true){ //press beat
+               //spawn a press beat
+               press1.spawnBeat();
+               
+             }
+             else if(measure2Lane1Hold[(currentBeat+16)] == true){ //hold beat
+               //check if this is beginning or end of beat
+               if(measure2Lane1Hold[(currentBeat+15)] == false){
+                 //spawn the start of a hold beat
+                 hold1.spawnStartBeat();
+               }
+               else if (measure2Lane1Hold[currentBeat+17] == false){
+                 //spawn the end of a hold beat
+                 hold1.spawnEndBeat(); 
+               }
+               else{
+                 //spawn the middle of a hold beat
+                 hold1.spawnMidBeat(); 
+               }  
+             }
+             else{
+               //don't spawn a beat
+             }
+           }
+           
+           else if((currentBeat+16)> 80){ //next measure
+             if(measure3Lane1Press[(currentBeat+16)] == true){ //press beat
+               //spawn a press beat
+               press1.spawnBeat();
+             }
+             else if(measure3Lane1Hold[(currentBeat+16)] == true){ //hold beat
+               //check if this is beginning or end of beat
+               if(measure3Lane1Hold[(currentBeat+15)] == false){
+                 //spawn the start of a hold beat
+                 hold1.spawnStartBeat();
+               }
+               else if (measure3Lane1Hold[currentBeat+17] == false){
+                 //spawn the end of a hold beat
+                 hold1.spawnEndBeat(); 
+               }
+               else{
+                 //spawn the middle of a hold beat
+                 hold1.spawnMidBeat(); 
+               }  
+             }
+             else{
+               //don't spawn a beat
+             }
+           //display all beats
+           press1.display();
+           hold1.display(); 
          }
+         
          
          //MEASURE 3
          else if(measure == 3){
