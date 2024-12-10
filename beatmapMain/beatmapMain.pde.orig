@@ -9,6 +9,12 @@ BeatsPerMinute bpmUMG;
 BeatsPerMinute bpmMeltdown;
 BeatsPerMinute bpmCantarella;
 BeatsPerMinute bpmPhony;
+<<<<<<< HEAD
+BeatsPerMinute checkLane1;
+BeatsPerMinute checkLane2;
+BeatsPerMinute checkLane3;
+BeatsPerMinute checkLane4;
+=======
 BeatsPerMinute checkSpawnLane1;
 BeatsPerMinute checkSpawnLane2;
 BeatsPerMinute checkSpawnLane3;
@@ -17,6 +23,7 @@ BeatsPerMinute checkPressLane1;
 BeatsPerMinute checkPressLane2;
 BeatsPerMinute checkPressLane3;
 BeatsPerMinute checkPressLane4;
+>>>>>>> main
 
 /////sound files/////
 SoundFile LLNF;
@@ -306,6 +313,12 @@ void setup(){
   bpmPhony = new BeatsPerMinute(this); //initializes bpm for phony
   //bpmPhony.setBPM(170);
   
+<<<<<<< HEAD
+  checkLane1 = new BeatsPerMinute(this); //initialize a BPM check for lane 1
+  checkLane2 = new BeatsPerMinute(this); //initializes a BPM check for lane 2
+  checkLane3 = new BeatsPerMinute(this); //initializes a BPM check for lane 3
+  checkLane4 = new BeatsPerMinute(this); //initializes a BPM check for lane 4
+=======
   checkSpawnLane1 = new BeatsPerMinute(this); //initializes a spawn BPM check for lane 1
   checkSpawnLane2 = new BeatsPerMinute(this); //initializes a spawn BPM check for lane 2
   checkSpawnLane3 = new BeatsPerMinute(this); //initializes a spawn BPM check for lane 3
@@ -314,6 +327,7 @@ void setup(){
   checkPressLane2 = new BeatsPerMinute(this); //initializes a press BPM check for lane 2
   checkPressLane3 = new BeatsPerMinute(this); //initializes a press BPM check for lane 3
   checkPressLane4 = new BeatsPerMinute(this); //initializes a press BPM check for lane 4
+>>>>>>> main
 }
 
 
@@ -356,6 +370,26 @@ void draw(){
    rect(991, 760, 1244, 860);
    rect(991, 790, 1244, 830);
    
+<<<<<<< HEAD
+   if(isSongPlaying == true){
+   //check lane to see if beat has been spawned for this beat in song
+     if(checkLane1.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 1)
+       
+     }
+   
+     if(checkLane2.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 2)
+       
+     }
+   
+     if(checkLane3.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 3)
+       
+     }
+   
+     if(checkLane4.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 4)
+       
+     }
+   }
+=======
    if(songChoice == 1){
      if(!Cantarella.isPlaying()){
        bpmCantarella.setBPM(144);
@@ -393,6 +427,7 @@ void draw(){
      gameScreen = false;
      pauseScreen = true;
    }
+>>>>>>> main
  }
  
  else if(pauseScreen == true){
