@@ -26,6 +26,16 @@ SoundFile Cantarella;
 SoundFile phony;
 
 /////PVectors/////
+PVector lane1PressPos;
+PVector lane2PressPos;
+PVector lane3PressPos;
+PVector lane4PressPos;
+PVector lane1HoldPos;
+PVector lane2HoldPos;
+PVector lane3HoldPos;
+PVector lane4HoldPos;
+PVector noteVel;
+PVector noteAccel;
 
 /////ints/////
 int currentBeat;
@@ -243,14 +253,6 @@ boolean[] beatLane2P;
 boolean[] beatLane3P;
 boolean[] beatLane4P;*/
 
-/////ArrayLists/////
-ArrayList beatLane1Pos;
-ArrayList beatLane2Pos;
-ArrayList beatLane3Pos;
-ArrayList beatLane4Pos;
-ArrayList beatVel;
-ArrayList beatAccel;
-
 /////objects/////
 HoldBeat lane1H = new HoldBeat();
 HoldBeat lane2H = new HoldBeat();
@@ -260,6 +262,26 @@ PressBeat lane1P = new PressBeat();
 PressBeat lane2P = new PressBeat();
 PressBeat lane3P = new PressBeat();
 PressBeat lane4P = new PressBeat();
+
+/////ArrayLists/////
+//pvectors
+ArrayList<PVector> pressBeatLane1 = new ArrayList<PVector>();
+ArrayList<PVector> pressBeatLane2 = new ArrayList<PVector>();
+ArrayList<PVector> pressBeatLane3 = new ArrayList<PVector>();
+ArrayList<PVector> pressBeatLane4 = new ArrayList<PVector>();
+ArrayList<PVector> holdBeatLane1 = new ArrayList<PVector>();
+ArrayList<PVector> beatVel = new ArrayList<PVector>();
+ArrayList<PVector> beatAccel = new ArrayList<PVector>();
+//objects
+ArrayList<HoldBeat> lane1Hold = new ArrayList<HoldBeat>();
+ArrayList<HoldBeat> lane2Hold = new ArrayList<HoldBeat>();
+ArrayList<HoldBeat> lane3Hold = new ArrayList<HoldBeat>();
+ArrayList<HoldBeat> lane4Hold = new ArrayList<HoldBeat>();
+ArrayList<PressBeat> lane1Press = new ArrayList<PressBeat>();
+ArrayList<PressBeat> lane2Press = new ArrayList<PressBeat>();
+ArrayList<PressBeat> lane3Press = new ArrayList<PressBeat>();
+ArrayList<PressBeat> lane4Press = new ArrayList<PressBeat>();
+
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ setup & variable initialization ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -369,6 +391,17 @@ void draw(){
        //check lane to see if beat has been spawned for this beat in song
        if(checkSpawnLane1.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 1)
          if(measure == 1){
+           //scroll existing beats down the screen
+           lane1P.scrollNotes();
+           lane2P.scrollNotes();
+           lane3P.scrollNotes();
+           lane4P.scrollNotes();
+           lane1H.scrollNotes();
+           lane2H.scrollNotes();
+           lane3H.scrollNotes();
+           lane4H.scrollNotes();
+           
+           //spawn new beats
            //check what type of beat needs to be spawned
            if(measure1Lane1Press[(currentBeat+16)] == true){ //press beat
              //spawn a press beat
@@ -386,14 +419,23 @@ void draw(){
                lane1H.spawnEndBeat(); 
              }
              else{
-               //spawn a middle beat
+               //spawn the middle of a hold beat
                lane1H.spawnMidBeat(); 
              }  
            }
            else{
              //don't spawn a beat
            }
-           //scroll the beats on screen in the lane
+           
+           //display all beats
+           lane1P.display();
+           lane2P.display();
+           lane3P.display();
+           lane4P.display();
+           lane1H.display();
+           lane2H.display();
+           lane3H.display();
+           lane4H.display();
          }
          
          else if(measure == 2){
