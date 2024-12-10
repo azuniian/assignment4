@@ -4,4 +4,16 @@ class HoldBeat{
     
   }
   
+  void spawnStartBeat(){
+    
+  }
+  
+  void spawnMidBeat(){
+    
+  }
+  
+  void spawnEndBeat(){
+    
+  }
+  
 }

@@ -4,4 +4,7 @@ class PressBeat{
     
   }
   
+  void spawnBeat(){
+    
+  }
 }

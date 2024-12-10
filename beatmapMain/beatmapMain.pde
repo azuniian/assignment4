@@ -368,7 +368,105 @@ void draw(){
      if(isSongPlaying == true){
        //check lane to see if beat has been spawned for this beat in song
        if(checkSpawnLane1.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 1)
+         if(measure == 1){
+           //check what type of beat needs to be spawned
+           if(measure1Lane1Press[(currentBeat+16)] == true){ //press beat
+             //spawn a press beat
+             lane1P.spawnBeat();
+           }
+           
+           else if(measure1Lane1Hold[(currentBeat+16)] == true){ //hold beat
+             //check if this is beginning or end of beat
+             if(measure1Lane1Hold[(currentBeat+15)] == false){
+               //spawn the start of a hold beat
+               lane1H.spawnStartBeat();
+             }
+             else if (measure1Lane1Hold[currentBeat+17] == false){
+               //spawn the end of a hold beat
+               lane1H.spawnEndBeat(); 
+             }
+             else{
+               //spawn a middle beat
+               lane1H.spawnMidBeat(); 
+             }  
+           }
+           else{
+             //don't spawn a beat
+           }
+           //scroll the beats on screen in the lane
+         }
          
+         else if(measure == 2){
+           
+         }
+         
+         else if(measure == 3){
+           
+         }
+         
+         else if(measure == 4){
+           
+         }
+         
+         else if(measure == 5){
+           
+         }
+         
+         else if(measure == 6){
+           
+         }
+         
+         else if(measure == 7){
+           
+         }
+         
+         else if(measure == 8){
+           
+         }
+         
+         else if(measure == 9){
+           
+         }
+         
+         else if(measure == 10){
+           
+         }
+         
+         else if(measure == 11){
+           
+         }
+         
+         else if(measure == 12){
+           
+         }
+         
+         else if(measure == 13){
+           
+         }
+         
+         else if(measure == 14){
+           
+         }
+         
+         else if(measure == 15){
+           
+         }
+         
+         else if(measure == 16){
+           
+         }
+         
+         else if(measure == 17){
+           
+         }
+         
+         else if(measure == 18){
+           
+         }
+         
+         else if(measure == 19){
+           
+         }
        }
    
        if(checkSpawnLane2.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 2)
