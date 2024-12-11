@@ -568,3 +568,27 @@ void mouseClicked(){
     }
   } 
 }
+
+void keyPressed(){
+ if(gameScreen == true){
+   if(key == 'f'){
+     fill(140, 219, 210, 200);
+     rect(31, 790, 253, 40);
+   }
+   
+   else if(key== 't'){
+     fill(140, 219, 210, 200);
+     rect(351, 790, 253, 40);
+   }
+   
+   else if(key == 'b'){
+     fill(140, 219, 210, 200);
+     rect(671, 790, 253, 40);
+   }
+   
+   else if(key == 'h'){
+     fill(140, 219, 210, 200);
+     rect(991, 790, 253, 40);
+   }
+  }
+}
