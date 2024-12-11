@@ -44,7 +44,7 @@ color colourMid;
     size = new PVector(w1, h1);
     sizeMid = new PVector(w2, h2);
     vel = new PVector();
-    vel.set(0, 50.625);
+    vel.set(0, 7);
     
     hold2Start1Pos = new PVector();
     hold2Start1Pos.set(0, 0);

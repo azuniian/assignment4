@@ -22,7 +22,7 @@ color colour;
     colour = c;
     size = new PVector(w, h);
     vel = new PVector();
-    vel.set(0, 50.625);
+    vel.set(0, 7);
     
     press3Note1Pos = new PVector();
     press3Note1Pos.set(0, 0);
