@@ -29,9 +29,10 @@ SoundFile phony;
 PVector accel;
 
 /////ints/////
-int currentBeat;
+int currentBeat = 0;
+int checkBeat = 0;
 int gameScore;
-int measure;
+int measure = 1;
 
 /////floats/////
 float measureFloat;
@@ -44,27 +45,10 @@ boolean pauseScreen = false;
 boolean controlScreen = false;
 boolean scoreScreen = false;
 boolean isSongPlaying = false;
+boolean songEnd = false;
 
 
 /////arrays/////
-//Luka Luka Night Fever
-/*boolean[] beatLane1LLNF;
-boolean[] beatLane2LLNF;
-boolean[] beatLane3LLNF;
-boolean[] beatLane4LLNF;*/
-
-//Unknown Mother Goose
-/*boolean[] beatLane1UMG;
-boolean[] beatLane2UMG;
-boolean[] beatLane3UMG;
-boolean[] beatLane4UMG;*/
-
-//Meltdown
-/*boolean[] beatLane1M;
-boolean[] beatLane2M;
-boolean[] beatLane3M;
-boolean[] beatLane4M;*/
-
 //Cantarella//
 //measure 1
 boolean[] measure1Lane1Press = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, true, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false,  true,false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, true, false, true,false, false, false, false, false, true};
@@ -80,7 +64,7 @@ boolean[] measure2Lane1Press = {false, false, false, false, false, false, false,
 boolean[] measure2Lane2Press = {false, true, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, true, false, false, false, false, false, true, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false,true, false, false, false, false, false, false};
 boolean[] measure2Lane3Press = {false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, true, false, true, false, false, false, false, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false};
 boolean[] measure2Lane4Press = {false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, false, false, false, false, false, false, false, true, false, false, false, false, false, true, true, true, false, false, false, false, false, false, false, true, false, false, false, false};
-boolean[] measure2Lane1Hold = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+boolean[] measure2Lane1Hold = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 boolean[] measure2Lane2Hold = {false, false, false, false, false, false, false, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 boolean[] measure2Lane3Hold = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,  true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 boolean[] measure2Lane4Hold = {false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true,false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
@@ -238,21 +222,15 @@ boolean[] measure19Lane2Hold = {false, false, false, false, false, false, false,
 boolean[] measure19Lane3Hold = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 boolean[] measure19Lane4Hold = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 
-//phony//
-/*boolean[] beatLane1P;
-boolean[] beatLane2P;
-boolean[] beatLane3P;
-boolean[] beatLane4P;*/
-
 /////objects/////
-HoldBeat1 hold1 = new HoldBeat1(38, 253, 38, 30, color(23, 19, 97), color(135, 132, 189));
-HoldBeat2 hold2 = new HoldBeat2(38, 253, 38, 30, color(23, 19, 97), color(135, 132, 189));
-HoldBeat3 hold3 = new HoldBeat3(38, 253, 38, 30, color(23, 19, 97), color(135, 132, 189));
-HoldBeat4 hold4 = new HoldBeat4(38, 253, 38, 30, color(23, 19, 97), color(135, 132, 189));
-PressBeat1 press1 = new PressBeat1(38, 253, color(23, 19, 97));
-PressBeat2 press2 = new PressBeat2(38, 253, color(23, 19, 97));
-PressBeat3 press3 = new PressBeat3(38, 253, color(23, 19, 97));
-PressBeat4 press4 = new PressBeat4(38, 253, color(23, 19, 97));
+HoldBeat1 hold1;
+HoldBeat2 hold2;
+HoldBeat3 hold3;
+HoldBeat4 hold4;
+PressBeat1 press1;
+PressBeat2 press2;
+PressBeat3 press3;
+PressBeat4 press4;
 
 /////ArrayLists/////
 //pvectors
@@ -264,7 +242,7 @@ PressBeat4 press4 = new PressBeat4(38, 253, color(23, 19, 97));
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ setup & variable initialization ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 void setup(){
   size(1280, 1024);
-  rectMode(CORNERS);
+  rectMode(CORNER);
   
   //Luka Luka Night Fever by SAM (samfree) ft. Megurine Luka - information & sound file from https://projectsekai.fandom.com/wiki/Luka_Luka_%E2%98%85_Night_Fever
   LLNF = new SoundFile(this, "Luka_Luka_Night_Fever_(Game_Version_-_VIRTUAL_SINGER).wav");
@@ -297,7 +275,6 @@ void setup(){
   //songChoice = 1
   Cantarella = new SoundFile(this, "Cantarella_(Game_Version_-_VIRTUAL_SINGER).wav");
   bpmCantarella = new BeatsPerMinute(this); //initialize bpm for Cantarella
-  //bpmCantarella.setBPM(144); //set bpm for Cantarella
   
   
   //phony by Tsumiki ft. KAFU - information & sound file from https://projectsekai.fandom.com/wiki/Phony
@@ -313,323 +290,4580 @@ void setup(){
   checkPressLane2 = new BeatsPerMinute(this); //initializes a press BPM check for lane 2
   checkPressLane3 = new BeatsPerMinute(this); //initializes a press BPM check for lane 3
   checkPressLane4 = new BeatsPerMinute(this); //initializes a press BPM check for lane 4
+  
+  hold1 = new HoldBeat1(38, 253, 38, 30, color(23, 19, 97), color(135, 132, 189));
+  hold2 = new HoldBeat2(38, 253, 38, 30, color(23, 19, 97), color(135, 132, 189));
+  hold3 = new HoldBeat3(38, 253, 38, 30, color(23, 19, 97), color(135, 132, 189));
+  hold4 = new HoldBeat4(38, 253, 38, 30, color(23, 19, 97), color(135, 132, 189));
+  press1 = new PressBeat1(38, 253, color(23, 19, 97));
+  press2 = new PressBeat2(38, 253, color(23, 19, 97));
+  press3 = new PressBeat3(38, 253, color(23, 19, 97));
+  press4 = new PressBeat4(38, 253, color(23, 19, 97));
 }
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ draw ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 void draw(){
- background(255);
- //check which screen is being drawn
- if(startScreen == true){
+  background(255);
+  //check which screen is being drawn
+  if(startScreen == true){
    
- }
+  }
  
- else if(songScreen == true){
+  else if(songScreen == true){
    
- }
+  }
  
- else if(controlScreen == true){
+  else if(controlScreen == true){
    
- }
+  }
  
- else if(gameScreen == true){
-   //draw the reference lines/circles
-   stroke(0, 0, 0, 200);
-   strokeWeight(2);
-   line(960, 0, 960, 1024);
-   line(640, 0, 640, 1024);
-   line(320, 0, 320, 1024);
-   line(0, 810, 1280, 810);
-   //lane 1 reference rectangles
-   stroke(184, 191, 191, 200);
-   fill(184, 191, 191, 100);
-   rect(31, 760, 284, 860);
-   rect(31, 790, 284, 830);
-   //lane 2 reference rectangles
-   rect(351, 760, 604, 860);
-   rect(351, 790, 604, 830);
-   //lane 3 reference rectangles
-   rect(671, 760, 924, 860);
-   rect(671, 790, 924, 830);
-   //lane 4 reference rectangles
-   rect(991, 760, 1244, 860);
-   rect(991, 790, 1244, 830);
+  else if(gameScreen == true){
+    //draw the reference lines/circles
+    stroke(0, 0, 0, 200);
+    strokeWeight(2);
+    line(960, 0, 960, 1024);
+    line(640, 0, 640, 1024);
+    line(320, 0, 320, 1024);
+    line(0, 810, 1280, 810);
+    //lane 1 reference rectangles
+    stroke(184, 191, 191, 200);
+    fill(184, 191, 191, 100);
+    rect(31, 760, 253, 100);
+    rect(31, 790, 253, 40);
+    //lane 2 reference rectangles
+    rect(351, 760, 253, 100);
+    rect(351, 790, 253, 40);
+    //lane 3 reference rectangles
+    rect(671, 760, 253, 100);
+    rect(671, 790, 253, 40);
+    //lane 4 reference rectangles
+    rect(991, 760, 253, 100);
+    rect(991, 790, 253, 40);
    
-   
-   if(!Cantarella.isPlaying()){
-     bpmCantarella.setBPM(144);
-     if(bpmCantarella.getBPM() == 16){
-       Cantarella.play();
-       isSongPlaying = true; 
-     }
-     
-     
-     if(isSongPlaying == true){
-       //check lane to see if beat has been spawned for this beat in song
-       //LANE1
-       if(checkSpawnLane1.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 1)
-         //MEASURE 1
-         if(measure == 1){
-           //check to see if any note arrays need to be reset
-           press1.resetNote();
-           hold1.resetNote();
+    if(isSongPlaying == false){
+      if(songEnd == false){
+        if(!Cantarella.isPlaying()){
+          bpmCantarella.setBPM(144);
+          //if(bpmCantarella.getBeatCount() == 16){
+            Cantarella.play();
+            isSongPlaying = true; 
+          //} //end of start song conditional
+        }//end of sound management conditional
+      }//end of song check conditional
+      else if(songEnd == true){
+        gameScreen = false;
+        scoreScreen = true;
+      }//end of songEnd conditional
+    } //end of songPlaying false conditional
+    
+    else if(isSongPlaying == true){
+      //check lane to see if beat has been spawned for this beat in song
+      //LANE1
+      if(checkSpawnLane1.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 1)
+        //MEASURE 1
+        if(measure == 1){
+          //scroll existing beats down the screen
+          if(currentBeat>=1){
+            press1.scrollNotes();
+            hold1.scrollNotes();
+          }
            
-           //scroll existing beats down the screen
-           press1.scrollNotes();
-           hold1.scrollNotes();
-           
-           //spawn new beats
-           //check if the beats being checked are in this measure or next
-           if((currentBeat+16)<80){ //current measure
-             //check what type of beat needs to be spawned
-             if(measure1Lane1Press[(currentBeat+16)] == true){ //press beat
-               //spawn a press beat
-               press1.spawnBeat();
-             }
-             else if(measure1Lane1Hold[(currentBeat+16)] == true){ //hold beat
-               //check if this is beginning or end of beat
-               if(measure1Lane1Hold[(currentBeat+15)] == false){
-                 //spawn the start of a hold beat
-                 hold1.spawnStartBeat();
-               }
-               else if (measure1Lane1Hold[currentBeat+17] == false){
-                 //spawn the end of a hold beat
-                 hold1.spawnEndBeat(); 
-               }
-               else{
-                 //spawn the middle of a hold beat
-                 hold1.spawnMidBeat(); 
-               }  
-             }
-             else{
-               //don't spawn a beat
-             }
-           }
-           
-           else if((currentBeat+16)> 80){ //next measure
-             if(measure2Lane1Press[(currentBeat+16)] == true){ //press beat
-               //spawn a press beat
-               press1.spawnBeat();
-             }
-             else if(measure2Lane1Hold[(currentBeat+16)] == true){ //hold beat
-               //check if this is beginning or end of beat
-               if(measure2Lane1Hold[(currentBeat+15)] == false){
-                 //spawn the start of a hold beat
-                 hold1.spawnStartBeat();
-               }
-               else if (measure2Lane1Hold[currentBeat+17] == false){
-                 //spawn the end of a hold beat
-                 hold1.spawnEndBeat(); 
-               }
-               else{
-                 //spawn the middle of a hold beat
-                 hold1.spawnMidBeat(); 
-               }  
-             }
-             else{
-               //don't spawn a beat
-             }
-           }   
-           //display all beats
-           press1.display();
-           hold1.display();    
-         }
-         
-         
-         //MEASURE 2
-         else if(measure == 2){
-           //check to see if any note arrays need to be reset
-           press1.resetNote();
-           hold1.resetNote();
-           
-           //scroll existing beats down the screen
-           press1.scrollNotes();
-           hold1.scrollNotes();
-           
-           //spawn new beats
-           //check if the beats being checked are in this measure or next
-           if((currentBeat+16)<80){ //current measure
-             //check what type of beat needs to be spawned
-             if(measure2Lane1Press[(currentBeat+16)] == true){ //press beat
-               //spawn a press beat
-               press1.spawnBeat();
-               
-             }
-             else if(measure2Lane1Hold[(currentBeat+16)] == true){ //hold beat
-               //check if this is beginning or end of beat
-               if(measure2Lane1Hold[(currentBeat+15)] == false){
-                 //spawn the start of a hold beat
-                 hold1.spawnStartBeat();
-               }
-               else if (measure2Lane1Hold[currentBeat+17] == false){
-                 //spawn the end of a hold beat
-                 hold1.spawnEndBeat(); 
-               }
-               else{
-                 //spawn the middle of a hold beat
-                 hold1.spawnMidBeat(); 
-               }  
-             }
-             else{
-               //don't spawn a beat
-             }
-           }
-           
-           else if((currentBeat+16)> 80){ //next measure
-             if(measure3Lane1Press[(currentBeat+16)] == true){ //press beat
-               //spawn a press beat
-               press1.spawnBeat();
-             }
-             else if(measure3Lane1Hold[(currentBeat+16)] == true){ //hold beat
-               //check if this is beginning or end of beat
-               if(measure3Lane1Hold[(currentBeat+15)] == false){
-                 //spawn the start of a hold beat
-                 hold1.spawnStartBeat();
-               }
-               else if (measure3Lane1Hold[currentBeat+17] == false){
-                 //spawn the end of a hold beat
-                 hold1.spawnEndBeat(); 
-               }
-               else{
-                 //spawn the middle of a hold beat
-                 hold1.spawnMidBeat(); 
-               }  
-             }
-             else{
-               //don't spawn a beat
-             }
-           //display all beats
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<80){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure1Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure1Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure1Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure1Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 80){ //next measure
+            if(measure2Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure2Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure2Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure2Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
            press1.display();
            hold1.display(); 
-         }
-         
-         
-         //MEASURE 3
-         else if(measure == 3){
            
-         }
-         
-         //MEASURE 4
-         else if(measure == 4){
+           //check to see if any note arrays need to be reset
+          if(currentBeat>=16){
+            //press1.resetNote();
+            //hold1.resetNote();
+          }
+        }//end of measure 1
+        
+        //MEASURE 2
+        else if(measure == 2){
+        //check to see if any note arrays need to be reset
            
-         }
-         
-         //MEASURE 5
-         else if(measure == 5){
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
            
-         }
-         
-         //MEASURE 6
-         else if(measure == 6){
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<144){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure2Lane1Press[(currentBeat%64)+16] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure2Lane1Hold[((currentBeat%64)+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure2Lane1Hold[(currentBeat%64)+15] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure2Lane1Hold[(currentBeat%64)+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 144){ //next measure
+            if(measure3Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure3Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure3Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure3Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press1.display();
+          hold1.display(); 
+          
+          press1.resetNote();
+          hold1.resetNote();
+        }//end of measure 2
+        
+        //MEASURE 3
+        else if(measure == 3){
+          //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
            
-         }
-         
-         //MEASURE 7
-         else if(measure == 7){
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
            
-         }
-         
-         //MEASURE 8
-         else if(measure == 8){
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<208){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure3Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure3Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure3Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure3Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 208){ //next measure
+            if(measure4Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure4Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure4Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure4Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press1.display();
+          hold1.display(); 
+        }//end of measure 3
+        
+        //MEASURE 4
+        else if(measure == 4){
+          //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
            
-         }
-         
-         //MEASURE 9
-         else if(measure == 9){
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
            
-         }
-         
-         //MEASURE 10
-         else if(measure == 10){
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<272){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure4Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure4Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure4Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure4Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 272){ //next measure
+            if(measure5Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure5Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure5Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure5Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press1.display();
+          hold1.display(); 
+        }//end of measure 4
+        
+        //MEASURE 5
+        else if(measure == 5){
+          //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
            
-         }
-         
-         //MEASURE 11
-         else if(measure == 11){
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
            
-         }
-         
-         //MEASURE 12
-         else if(measure == 12){
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<336){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure5Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure5Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure5Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure5Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 336){ //next measure
+            if(measure6Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure6Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure6Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure6Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press1.display();
+          hold1.display(); 
+        }//end of measure 5
+        
+        //MEASURE 6
+        else if(measure == 6){
+        //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
            
-         }
-         
-         //MEASURE 13
-         else if(measure == 13){
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
            
-         }
-         
-         //MEASURE 14
-         else if(measure == 14){
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<400){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure6Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure6Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure6Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure6Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 400){ //next measure
+            if(measure7Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure7Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure7Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure7Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press1.display();
+           hold1.display(); 
+        }//end of measure 6
+        
+        //MEASURE 7
+        else if(measure == 7){
+          //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
            
-         }
-         
-         //MEASURE 15
-         else if(measure == 15){
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
            
-         }
-         
-         //MEASURE 16
-         else if(measure == 16){
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<464){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure7Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure7Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure7Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure7Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 464){ //next measure
+            if(measure8Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure8Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure8Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure8Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press1.display();
+           hold1.display(); 
+        }//end of measure 7
+        
+        //MEASURE 8
+        else if(measure == 8){
+          //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
            
-         }
-         
-         //MEASURE 17
-         else if(measure == 17){
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
            
-         }
-         
-         //MEASURE 18
-         else if(measure == 18){
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<528){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure8Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure8Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure8Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure8Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 528){ //next measure
+            if(measure9Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure9Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure9Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure9Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press1.display();
+           hold1.display(); 
+        }//end of measure 8
+        
+        //MEASURE 9
+        else if(measure == 9){
+          //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
            
-         }
-         
-         //MEASURE 19
-         else if(measure == 19){
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
            
-         }
-       }
-   
-       //LANE 2
-       if(checkSpawnLane2.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 2)
-       
-       }
-   
-       //LANE 3
-       if(checkSpawnLane3.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 3)
-       
-       }
-   
-       //LANE 4
-       if(checkSpawnLane4.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 4)
-       
-       }
-       currentBeat+=1;
-       if(measure == 1){ //measure 1 is longer, so needs a specific case
-         measureFloat = (currentBeat/80)+1; //get current measure
-         measure = int(measureFloat); //typecast to get whole number
-       }
-       else{
-         measureFloat = (currentBeat/64)+1; //get current measure
-         measure = int(measureFloat); //typecast to get whole number 
-       }
-       
-     }
-   }
-     
-   
-   
-   else{
-     gameScreen = false;
-     pauseScreen = true;
-   }
- }
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<592){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure9Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure9Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure9Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure9Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 592){ //next measure
+            if(measure10Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure10Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure10Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure10Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press1.display();
+           hold1.display(); 
+        }//end of measure 9
+        
+        //MEASURE 10
+        else if(measure == 10){
+          //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
+           
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<656){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure10Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure10Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure10Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure10Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 656){ //next measure
+            if(measure11Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure11Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure11Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure11Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press1.display();
+           hold1.display(); 
+        }//end of measure 10
+        
+        //MEASURE 11
+        else if(measure == 11){
+          //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
+           
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<720){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure11Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure11Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure11Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure11Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 720){ //next measure
+            if(measure12Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure12Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure12Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure12Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press1.display();
+           hold1.display(); 
+        }//end of measure 11
+        
+        //MEASURE 12
+        else if(measure == 12){
+          //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
+           
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<784){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure12Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure12Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure12Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure12Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 784){ //next measure
+            if(measure13Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure13Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure13Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure13Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press1.display();
+           hold1.display(); 
+        }//end of measure 12
+        
+        //MEASURE 13
+        else if(measure == 13){
+          //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
+           
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<848){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure13Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure13Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure13Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure13Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 848){ //next measure
+            if(measure14Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure14Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure14Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure14Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press1.display();
+           hold1.display(); 
+        }//end of measure 13
+        
+        //MEASURE 14
+        else if(measure == 14){
+          //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
+           
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<912){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure14Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure14Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure14Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure14Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 912){ //next measure
+            if(measure15Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure15Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure15Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure15Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press1.display();
+           hold1.display(); 
+        }//end of measure 14
+        
+        //MEASURE 15
+        else if(measure == 15){
+          //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
+           
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<976){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure15Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure15Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure15Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure15Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 976){ //next measure
+            if(measure16Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure16Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure16Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure16Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press1.display();
+           hold1.display(); 
+        }//end of measure 15
+        
+        //MEASURE 16
+        else if(measure == 16){
+          //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
+           
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<1040){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure16Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure16Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure16Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure16Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 1040){ //next measure
+            if(measure17Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure17Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure17Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure17Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press1.display();
+           hold1.display(); 
+        }//end of measure 16
+        
+        //MEASURE 17
+        else if(measure == 17){
+          //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
+           
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<1104){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure17Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure17Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure17Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure17Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 1104){ //next measure
+            if(measure18Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure18Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure18Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure18Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press1.display();
+           hold1.display(); 
+        }//end of measure 17
+        
+        //MEASURE 18
+        else if(measure == 18){
+          //check to see if any note arrays need to be reset
+          press1.resetNote();
+          hold1.resetNote();
+           
+          //scroll existing beats down the screen
+          press1.scrollNotes();
+          hold1.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<1168){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure18Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure18Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure18Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure18Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 1168){ //next measure
+            if(measure19Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press1.spawnBeat();
+            }
+            else if(measure19Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure19Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold1.spawnStartBeat();
+              }
+              else if (measure19Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold1.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold1.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press1.display();
+           hold1.display(); 
+        }//end of measure 18
+      }//end of lane 1 conditional
+      
+      //LANE 2
+      if(checkSpawnLane2.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 1)
+        //MEASURE 1
+        if(measure == 1){
+          //check to see if any note arrays need to be reset
+          //press2.resetNote();
+          //hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          //press2.scrollNotes();
+          //hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<80){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure1Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure1Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure1Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure1Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 80){ //next measure
+            if(measure2Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure2Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure2Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure2Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press2.display();
+           hold2.display(); 
+        }//end of measure 1
+        
+        //MEASURE 2
+        else if(measure == 2){
+        //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<144){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure2Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure2Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure2Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure2Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 144){ //next measure
+            if(measure3Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure3Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure3Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure3Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press2.display();
+          hold2.display(); 
+        }//end of measure 2
+        
+        //MEASURE 3
+        else if(measure == 3){
+          //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<208){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure3Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure3Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure3Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure3Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 208){ //next measure
+            if(measure4Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure4Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure4Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure4Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press2.display();
+          hold2.display(); 
+        }//end of measure 3
+        
+        //MEASURE 4
+        else if(measure == 4){
+          //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<272){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure4Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure4Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure4Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure4Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 272){ //next measure
+            if(measure5Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure5Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure5Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure5Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press2.display();
+          hold2.display(); 
+        }//end of measure 4
+        
+        //MEASURE 5
+        else if(measure == 5){
+          //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<336){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure5Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure5Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure5Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure5Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 336){ //next measure
+            if(measure6Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure6Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure6Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure6Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press2.display();
+          hold2.display(); 
+        }//end of measure 5
+        
+        //MEASURE 6
+        else if(measure == 6){
+        //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<400){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure6Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure6Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure6Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure6Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 400){ //next measure
+            if(measure7Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure7Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure7Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure7Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press2.display();
+           hold2.display(); 
+        }//end of measure 6
+        
+        //MEASURE 7
+        else if(measure == 7){
+          //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<464){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure7Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure7Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure7Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure7Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 464){ //next measure
+            if(measure8Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure8Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure8Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure8Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press2.display();
+           hold2.display(); 
+        }//end of measure 7
+        
+        //MEASURE 8
+        else if(measure == 8){
+          //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<528){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure8Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure8Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure8Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure8Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 528){ //next measure
+            if(measure9Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure9Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure9Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure9Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press2.display();
+           hold2.display(); 
+        }//end of measure 8
+        
+        //MEASURE 9
+        else if(measure == 9){
+          //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<592){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure9Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure9Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure9Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure9Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 592){ //next measure
+            if(measure10Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure10Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure10Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure10Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press2.display();
+           hold2.display(); 
+        }//end of measure 9
+        
+        //MEASURE 10
+        else if(measure == 10){
+          //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<656){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure10Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure10Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure10Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure10Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 656){ //next measure
+            if(measure11Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure11Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure11Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure11Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press2.display();
+           hold2.display(); 
+        }//end of measure 10
+        
+        //MEASURE 11
+        else if(measure == 11){
+          //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<720){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure11Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure11Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure11Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure11Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 720){ //next measure
+            if(measure12Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure12Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure12Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure12Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press2.display();
+           hold2.display(); 
+        }//end of measure 11
+        
+        //MEASURE 12
+        else if(measure == 12){
+          //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<784){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure12Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure12Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure12Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure12Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 784){ //next measure
+            if(measure13Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure13Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure13Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure13Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press2.display();
+           hold2.display(); 
+        }//end of measure 12
+        
+        //MEASURE 13
+        else if(measure == 13){
+          //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<848){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure13Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure13Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure13Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure13Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 848){ //next measure
+            if(measure14Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure14Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure14Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure14Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press2.display();
+           hold2.display(); 
+        }//end of measure 13
+        
+        //MEASURE 14
+        else if(measure == 14){
+          //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<912){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure14Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure14Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure14Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure14Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 912){ //next measure
+            if(measure15Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure15Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure15Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure15Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press2.display();
+           hold2.display(); 
+        }//end of measure 14
+        
+        //MEASURE 15
+        else if(measure == 15){
+          //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<976){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure15Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure15Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure15Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure15Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 976){ //next measure
+            if(measure16Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure16Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure16Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure16Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press2.display();
+           hold2.display(); 
+        }//end of measure 15
+        
+        //MEASURE 16
+        else if(measure == 16){
+          //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<1040){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure16Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure16Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure16Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure16Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 1040){ //next measure
+            if(measure17Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure17Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure17Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure17Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press2.display();
+           hold2.display(); 
+        }//end of measure 16
+        
+        //MEASURE 17
+        else if(measure == 17){
+          //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<1104){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure17Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure17Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure17Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure17Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 1104){ //next measure
+            if(measure18Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure18Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure18Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure18Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press2.display();
+           hold2.display(); 
+        }//end of measure 17
+        
+        //MEASURE 18
+        else if(measure == 18){
+          //check to see if any note arrays need to be reset
+          press2.resetNote();
+          hold2.resetNote();
+           
+          //scroll existing beats down the screen
+          press2.scrollNotes();
+          hold2.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<1168){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure18Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure18Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure18Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure18Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 1168){ //next measure
+            if(measure19Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press2.spawnBeat();
+            }
+            else if(measure19Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure19Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold2.spawnStartBeat();
+              }
+              else if (measure19Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold2.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold2.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press2.display();
+           hold2.display(); 
+        }//end of measure 18
+      }//end of lane 2 conditional
+      
+      //LANE 3
+      if(checkSpawnLane3.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 1)
+        //MEASURE 1
+        if(measure == 1){
+          //check to see if any note arrays need to be reset
+          //press3.resetNote();
+          //hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          //press3.scrollNotes();
+          //hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<80){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure1Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure1Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure1Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure1Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 80){ //next measure
+            if(measure2Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure2Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure2Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure2Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press3.display();
+           hold3.display(); 
+        }//end of measure 1
+        
+        //MEASURE 2
+        else if(measure == 2){
+        //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<144){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure2Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure2Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure2Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure2Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 144){ //next measure
+            if(measure3Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure3Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure3Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure3Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press3.display();
+          hold3.display(); 
+        }//end of measure 2
+        
+        //MEASURE 3
+        else if(measure == 3){
+          //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<208){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure3Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure3Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure3Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure3Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 208){ //next measure
+            if(measure4Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure4Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure4Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure4Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press3.display();
+          hold3.display(); 
+        }//end of measure 3
+        
+        //MEASURE 4
+        else if(measure == 4){
+          //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<272){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure4Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure4Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure4Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure4Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 272){ //next measure
+            if(measure5Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure5Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure5Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure5Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press3.display();
+          hold3.display(); 
+        }//end of measure 4
+        
+        //MEASURE 5
+        else if(measure == 5){
+          //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<336){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure5Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure5Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure5Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure5Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 336){ //next measure
+            if(measure6Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure6Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure6Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure6Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press3.display();
+          hold3.display(); 
+        }//end of measure 5
+        
+        //MEASURE 6
+        else if(measure == 6){
+        //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<400){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure6Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure6Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure6Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure6Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 400){ //next measure
+            if(measure7Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure7Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure7Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure7Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press3.display();
+           hold3.display(); 
+        }//end of measure 6
+        
+        //MEASURE 7
+        else if(measure == 7){
+          //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<464){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure7Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure7Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure7Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure7Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 464){ //next measure
+            if(measure8Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure8Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure8Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure8Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press3.display();
+           hold3.display(); 
+        }//end of measure 7
+        
+        //MEASURE 8
+        else if(measure == 8){
+          //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<528){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure8Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure8Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure8Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure8Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 528){ //next measure
+            if(measure9Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure9Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure9Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure9Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press3.display();
+           hold3.display(); 
+        }//end of measure 8
+        
+        //MEASURE 9
+        else if(measure == 9){
+          //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<592){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure9Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure9Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure9Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure9Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 592){ //next measure
+            if(measure10Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure10Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure10Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure10Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press3.display();
+           hold3.display(); 
+        }//end of measure 9
+        
+        //MEASURE 10
+        else if(measure == 10){
+          //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<656){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure10Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure10Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure10Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure10Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 656){ //next measure
+            if(measure11Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure11Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure11Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure11Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press3.display();
+           hold3.display(); 
+        }//end of measure 10
+        
+        //MEASURE 11
+        else if(measure == 11){
+          //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<720){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure11Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure11Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure11Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure11Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 720){ //next measure
+            if(measure12Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure12Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure12Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure12Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press3.display();
+           hold3.display(); 
+        }//end of measure 11
+        
+        //MEASURE 12
+        else if(measure == 12){
+          //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<784){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure12Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure12Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure12Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure12Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 784){ //next measure
+            if(measure13Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure13Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure13Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure13Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press3.display();
+           hold3.display(); 
+        }//end of measure 12
+        
+        //MEASURE 13
+        else if(measure == 13){
+          //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<848){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure13Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure13Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure13Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure13Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 848){ //next measure
+            if(measure14Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure14Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure14Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure14Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press3.display();
+           hold3.display(); 
+        }//end of measure 13
+        
+        //MEASURE 14
+        else if(measure == 14){
+          //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<912){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure14Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure14Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure14Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure14Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 912){ //next measure
+            if(measure15Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure15Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure15Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure15Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press3.display();
+           hold3.display(); 
+        }//end of measure 14
+        
+        //MEASURE 15
+        else if(measure == 15){
+          //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<976){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure15Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure15Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure15Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure15Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 976){ //next measure
+            if(measure16Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure16Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure16Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure16Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press3.display();
+           hold3.display(); 
+        }//end of measure 15
+        
+        //MEASURE 16
+        else if(measure == 16){
+          //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<1040){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure16Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure16Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure16Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure16Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 1040){ //next measure
+            if(measure17Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure17Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure17Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure17Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press3.display();
+           hold3.display(); 
+        }//end of measure 16
+        
+        //MEASURE 17
+        else if(measure == 17){
+          //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<1104){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure17Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure17Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure17Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure17Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 1104){ //next measure
+            if(measure18Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure18Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure18Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure18Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press3.display();
+           hold3.display(); 
+        }//end of measure 17
+        
+        //MEASURE 18
+        else if(measure == 18){
+          //check to see if any note arrays need to be reset
+          press3.resetNote();
+          hold3.resetNote();
+           
+          //scroll existing beats down the screen
+          press3.scrollNotes();
+          hold3.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<1168){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure18Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure18Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure18Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure18Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 1168){ //next measure
+            if(measure19Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press3.spawnBeat();
+            }
+            else if(measure19Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure19Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold3.spawnStartBeat();
+              }
+              else if (measure19Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold3.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold3.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press3.display();
+           hold3.display(); 
+        }//end of measure 18
+      }//end of lane 3 conditional
+      
+      //LANE 4
+      if(checkSpawnLane4.every_once[1]){ //every beat, once per beat, check to see if a beat needs to be spawned/clicked or not (lane 1)
+        //MEASURE 1
+        if(measure == 1){
+          //check to see if any note arrays need to be reset
+          //if(currentBeat>= 16){
+            //press4.resetNote();
+            //hold4.resetNote();
+          //}
+          //if(currentBeat>=1){
+            //scroll existing beats down the screen
+            //press4.scrollNotes();
+            //hold4.scrollNotes();
+          //}
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<80){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure1Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure1Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure1Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure1Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 80){ //next measure
+            if(measure2Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure2Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure2Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure2Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press4.display();
+           hold4.display(); 
+        }//end of measure 1
+        
+        //MEASURE 2
+        else if(measure == 2){
+        //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<144){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure2Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure2Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure2Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure2Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 144){ //next measure
+            if(measure3Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure3Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure3Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure3Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press4.display();
+          hold4.display(); 
+        }//end of measure 2
+        
+        //MEASURE 3
+        else if(measure == 3){
+          //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<208){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure3Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure3Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure3Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure3Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 208){ //next measure
+            if(measure4Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure4Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure4Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure4Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press4.display();
+          hold4.display(); 
+        }//end of measure 3
+        
+        //MEASURE 4
+        else if(measure == 4){
+          //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<272){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure4Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure4Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure4Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure4Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 272){ //next measure
+            if(measure5Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure5Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure5Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure5Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press4.display();
+          hold4.display(); 
+        }//end of measure 4
+        
+        //MEASURE 5
+        else if(measure == 5){
+          //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<336){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure5Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure5Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure5Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure5Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 336){ //next measure
+            if(measure6Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure6Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure6Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure6Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+          press4.display();
+          hold4.display(); 
+        }//end of measure 5
+        
+        //MEASURE 6
+        else if(measure == 6){
+        //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<400){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure6Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure6Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure6Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure6Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 400){ //next measure
+            if(measure7Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure7Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure7Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure7Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press4.display();
+           hold4.display(); 
+        }//end of measure 6
+        
+        //MEASURE 7
+        else if(measure == 7){
+          //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<464){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure7Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure7Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure7Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure7Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 464){ //next measure
+            if(measure8Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure8Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure8Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure8Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press4.display();
+           hold4.display(); 
+        }//end of measure 7
+        
+        //MEASURE 8
+        else if(measure == 8){
+          //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<528){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure8Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure8Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure8Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure8Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 528){ //next measure
+            if(measure9Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure9Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure9Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure9Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press4.display();
+           hold4.display(); 
+        }//end of measure 8
+        
+        //MEASURE 9
+        else if(measure == 9){
+          //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<592){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure9Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure9Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure9Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure9Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 592){ //next measure
+            if(measure10Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure10Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure10Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure10Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press4.display();
+           hold4.display(); 
+        }//end of measure 9
+        
+        //MEASURE 10
+        else if(measure == 10){
+          //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<656){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure10Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure10Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure10Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure10Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 656){ //next measure
+            if(measure11Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure11Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure11Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure11Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press4.display();
+           hold4.display(); 
+        }//end of measure 10
+        
+        //MEASURE 11
+        else if(measure == 11){
+          //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<720){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure11Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure11Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure11Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure11Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 720){ //next measure
+            if(measure12Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure12Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure12Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure12Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press4.display();
+           hold4.display(); 
+        }//end of measure 11
+        
+        //MEASURE 12
+        else if(measure == 12){
+          //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<784){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure12Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure12Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure12Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure12Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 784){ //next measure
+            if(measure13Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure13Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure13Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure13Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press4.display();
+           hold4.display(); 
+        }//end of measure 12
+        
+        //MEASURE 13
+        else if(measure == 13){
+          //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<848){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure13Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure13Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure13Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure13Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 848){ //next measure
+            if(measure14Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure14Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure14Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure14Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press4.display();
+           hold4.display(); 
+        }//end of measure 13
+        
+        //MEASURE 14
+        else if(measure == 14){
+          //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<912){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure14Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure14Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure14Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure14Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 912){ //next measure
+            if(measure15Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure15Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure15Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure15Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press4.display();
+           hold4.display(); 
+        }//end of measure 14
+        
+        //MEASURE 15
+        else if(measure == 15){
+          //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<976){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure15Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure15Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure15Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure15Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 976){ //next measure
+            if(measure16Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure16Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure16Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure16Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press4.display();
+           hold4.display(); 
+        }//end of measure 15
+        
+        //MEASURE 16
+        else if(measure == 16){
+          //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<1040){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure16Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure16Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure16Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure16Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 1040){ //next measure
+            if(measure17Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure17Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure17Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure17Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press4.display();
+           hold4.display(); 
+        }//end of measure 16
+        
+        //MEASURE 17
+        else if(measure == 17){
+          //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<1104){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure17Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure17Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure17Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure17Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 1104){ //next measure
+            if(measure18Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure18Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure18Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure18Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press4.display();
+           hold4.display(); 
+        }//end of measure 17
+        
+        //MEASURE 18
+        else if(measure == 18){
+          //check to see if any note arrays need to be reset
+          press4.resetNote();
+          hold4.resetNote();
+           
+          //scroll existing beats down the screen
+          press4.scrollNotes();
+          hold4.scrollNotes();
+           
+          //spawn new beats
+          //check if the beats being checked are in this measure or next
+          if((currentBeat+16)<1168){ //current measure
+            //check what type of beat needs to be spawned
+            if(measure18Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure18Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure18Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure18Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          else if((currentBeat+16)> 1168){ //next measure
+            if(measure19Lane1Press[(currentBeat+16)] == true){ //press beat
+              //spawn a press beat
+              press4.spawnBeat();
+            }
+            else if(measure19Lane1Hold[(currentBeat+16)] == true){ //hold beat
+              //check if this is beginning or end of beat
+              if(measure19Lane1Hold[(currentBeat+15)] == false){
+                //spawn the start of a hold beat
+                hold4.spawnStartBeat();
+              }
+              else if (measure19Lane1Hold[currentBeat+17] == false){
+                //spawn the end of a hold beat
+                hold4.spawnEndBeat(); 
+              }
+              else{
+                //spawn the middle of a hold beat
+                hold4.spawnMidBeat(); 
+              }  
+            }
+          }
+          
+          //display all beats
+           press4.display();
+           hold4.display(); 
+        }//end of measure 18
+      }//end of lane 4 conditional
+      
+      currentBeat+=1;
+      if(measure == 1){ //measure 1 is longer, so needs a specific case
+        measureFloat = (currentBeat/80)+1; //get current measure
+        measure = int(measureFloat); //typecast to get whole number
+      }
+      else{
+        measureFloat = (currentBeat/64)+1; //get current measure
+        measure = int(measureFloat); //typecast to get whole number 
+      }  
+      println(currentBeat +" "+measure);
+    }//end of songPlaying true conditional
+    
+    
+  } //end of game screen conditional
  
- else if(pauseScreen == true){
-   
- }
  
- else if(scoreScreen == true){
+  else if(pauseScreen == true){
    
- }
+  }
+ 
+  else if(scoreScreen == true){
+   
+  }
 }

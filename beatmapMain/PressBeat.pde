@@ -1,4 +1,4 @@
-class PressBeat1{
+class PressBeat1 {
 /////variables/////
 //ArrayLists
 ArrayList<PVector> pressBeat1Lane1 = new ArrayList<PVector>();
@@ -21,8 +21,19 @@ color colour;
     rectMode(CORNER);
     colour = c;
     size = new PVector(w, h);
-    PVector vel = new PVector();
+    vel = new PVector();
     vel.set(0, 50.625);
+    
+    press1Note1Pos = new PVector();
+    press1Note1Pos.set(0, 0);
+    press1Note2Pos = new PVector();
+    press1Note2Pos.set(0, 0);
+    press1Note3Pos = new PVector();
+    press1Note3Pos.set(0, 0);
+    press1Note4Pos = new PVector();
+    press1Note4Pos.set(0, 0);
+    press1Note5Pos = new PVector();
+    press1Note5Pos.set(0, 0);
   }
   
   void spawnBeat(){

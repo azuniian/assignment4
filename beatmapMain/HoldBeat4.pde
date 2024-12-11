@@ -1,4 +1,4 @@
-class HoldBeat4{
+class HoldBeat4 {
 /////variables/////
 //ArrayLists
 ArrayList<PVector> holdStart1Lane4 = new ArrayList<PVector>();
@@ -28,21 +28,52 @@ PVector mid4Note7Pos;
 PVector mid4Note8Pos;
 PVector mid4Note9Pos;
 PVector mid4Note10Pos;
-PVector hold4End2Pos;
+PVector hold4End1Pos;
 PVector hold4End2Pos;
 PVector vel;
 //note qualities
 PVector size;
+PVector sizeMid;
 color colour;
+color colourMid;
 
   HoldBeat4(float h1, float w1, float h2, float w2, color c1, color c2){ //constructor
     rectMode(CORNER);
     colour = c1;
-    colour = c2;
+    colourMid = c2;
     size = new PVector(w1, h1);
     sizeMid = new PVector(w2, h2);
-    PVector vel = new PVector();
+    vel = new PVector();
     vel.set(0, 50.625);
+    
+    hold4Start1Pos = new PVector();
+    hold4Start1Pos.set(0, 0);
+    hold4Start2Pos = new PVector();
+    hold4Start2Pos.set(0, 0);
+    mid4Note1Pos = new PVector();
+    mid4Note1Pos.set(0, 0);
+    mid4Note2Pos = new PVector();
+    mid4Note2Pos.set(0, 0);
+    mid4Note3Pos = new PVector();
+    mid4Note3Pos.set(0, 0);
+    mid4Note4Pos = new PVector();
+    mid4Note4Pos.set(0, 0);
+    mid4Note5Pos = new PVector();
+    mid4Note5Pos.set(0, 0);
+    mid4Note6Pos = new PVector();
+    mid4Note6Pos.set(0, 0);
+    mid4Note7Pos = new PVector();
+    mid4Note7Pos.set(0, 0);
+    mid4Note8Pos = new PVector();
+    mid4Note8Pos.set(0, 0);
+    mid4Note9Pos = new PVector();
+    mid4Note9Pos.set(0, 0);
+    mid4Note10Pos = new PVector();
+    mid4Note10Pos.set(0, 0);
+    hold4End1Pos = new PVector();
+    hold4End1Pos.set(0, 0);
+    hold4End2Pos = new PVector();
+    hold4End2Pos.set(0, 0);  
   }
   
   void spawnStartBeat(){
